@@ -5,7 +5,7 @@ export interface DBAdapter {
 
   /**
    * This runs in a transaction under the hood. There is no need to
-   * wrap it in an explicit transaction for op-sqlite and powersync-sqlite.
+   * wrap it in an explicit transaction for op-sqlite and powersync-react-native-sqlite.
    */
   executeBatch(commands: SQLBatchTuple[]): Promise<ResultSet>;
 
