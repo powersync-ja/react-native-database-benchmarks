@@ -7,6 +7,7 @@ import { OPSqliteAdapter, ExpoSqliteAdapter, ExpoNextSqliteAdapter } from './ada
 import { BenchmarkResults } from './interface/benchmark';
 import { readString } from 'react-native-csv';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+import 'react-native-get-random-values'; //[Error: crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported]
 /**
  * RNQuickSqliteAdapter requires removing the @journeyapps/react-native-quick-sqlite libraries
  * Running the tests requires a manual switch from journeyapps to react-native-quick-sqlite
