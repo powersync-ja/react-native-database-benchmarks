@@ -116,11 +116,11 @@ class Benchmark {
   async runAll(): Promise<BenchmarkResults> {
     let results: BenchmarkResults = new BenchmarkResults(this.name);
 
-    console.log('Setting up database...');
+    console.log(`Setting up database for ${this.name}...`);
     await this.setUp();
     console.log('Setting up database done.');
 
-    console.log('Running tests...');
+    console.log(`Running tests for ${this.name}...`);
     await results.record('Test 1: 1000 INSERTs', async () => {
       await this.test1();
     });
@@ -345,7 +345,7 @@ export class BenchmarkBatched extends Benchmark {
     await super.setUp();
     console.log('Setting up database for batching done.');
 
-    console.log('Running batch tests...');
+    console.log(`Running batch tests for ${this.name}...`);
     await results.record('Test 1: 1000 INSERTs', async () => {
       await super.test1();
     });

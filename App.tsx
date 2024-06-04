@@ -37,38 +37,15 @@ export default function App() {
         let expoNextAdapter = new ExpoNextSqliteAdapter();
         // let rnQuickSqliteAdapter = new RNQuickSqliteAdapter();
         let benchmarks = [
-          // { name: 'op-sqlite', dbAdapter: opSqliteAdapter }
-          { name: 'ps-sqlite', dbAdapter: psSqliteAdapter }
+          { name: 'op-sqlite', dbAdapter: opSqliteAdapter }
+          // { name: 'ps-sqlite', dbAdapter: psSqliteAdapter },
           // { name: 'rn-quick-sqlite', dbAdapter: rnQuickSqliteAdapter }
           // { name: 'expo-sqlite', dbAdapter: expoSqliteAdapter }
           // { name: 'expo-next-sqlite', dbAdapter: expoNextAdapter }
         ];
         let benchmarkSuite = new BenchmarkSuite(benchmarks);
-        let results = await benchmarkSuite.runBenchmarks();
-
-        let first: BenchmarkResults = results[0];
-        let s = `Test,${results.map((r) => r.suite).join(',')},Average\n`;
-        for (let i = 0; i < first.results.length; i++) {
-          let test = first.results[i].test;
-          // let s = `,${test}`;
-          s += `${test}`;
-          let avg = 0;
-          for (const rr of results) {
-            let r3 = rr.results[i].duration;
-            if (typeof r3 === 'number') {
-              avg += r3;
-            }
-            s += `,${r3}`;
-          }
-          let average = avg / 3;
-          s += `,${average.toFixed(2)}\n`;
-        }
-        let json = readString(s, {
-          delimiter: ','
-        });
-        console.log(json);
-        setJson(json.data);
-        setCsvString(s);
+        await benchmarkSuite.runBenchmarks();
+        await benchmarkSuite.runBatchedBenchmarks();
       } catch (err) {
         console.error(err);
       }
