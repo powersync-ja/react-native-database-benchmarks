@@ -9,7 +9,7 @@ export class BenchmarkSuite {
     this.benchmarks = benchmarks;
   }
 
-  async runBenchmarks(): Promise<void> {
+  async runBenchmarks(): Promise<string> {
     let results = [];
     for (const benchmark of this.benchmarks) {
       for (let i = 0; i < 3; i++) {
@@ -19,10 +19,11 @@ export class BenchmarkSuite {
     }
     console.log('');
     let first: BenchmarkResults = results[0];
-    this.calculateAverage(results, first);
+    const csv: string = this.calculateAverage(results, first);
+    return csv;
   }
 
-  async runBatchedBenchmarks() {
+  async runBatchedBenchmarks(): Promise<string> {
     let batch_results = [];
     for (const benchmark of this.benchmarks) {
       for (let i = 0; i < 3; i++) {
@@ -32,26 +33,29 @@ export class BenchmarkSuite {
     }
     console.log('');
     let second: BenchmarkResults = batch_results[0];
-    this.calculateAverage(batch_results, second);
+    const csv: string = this.calculateAverage(batch_results, second);
+    return csv;
   }
 
   calculateAverage = (results: any[], benchmarkResults: BenchmarkResults) => {
-    let s = `Test,${results.map((r) => r.suite).join(',')},Average\n`;
+    let s = `Test,${results.map((r) => r.suite).join(',')}\n`;
     for (let i = 0; i < benchmarkResults.results.length; i++) {
       let test = benchmarkResults.results[i].test;
       // let s = `,${test}`;
       s += `${test}`;
-      let avg = 0;
+      // let avg = 0;
       for (const rr of results) {
         let r3 = rr.results[i].duration;
-        if (typeof r3 === 'number') {
-          avg += r3;
-        }
+        // if (typeof r3 === 'number') {
+        //   avg += r3;
+        // }
         s += `,${r3}`;
       }
-      let average = avg / 3;
-      s += `,${average.toFixed(2)}\n`;
+      s += `\n`;
+      // let average = avg / 3;
+      // s += `,${average.toFixed(2)}\n`;
     }
     console.log(s);
+    return s;
   };
 }
