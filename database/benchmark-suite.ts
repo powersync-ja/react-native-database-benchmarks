@@ -53,7 +53,7 @@ export class BenchmarkSuite {
       let average = avg / 3;
       s += `,${average.toFixed(2)}\n`;
     }
-    console.log(s);
+    console.log(`Here are the results in CSV format:\n${s}`);
     return s;
   };
 }

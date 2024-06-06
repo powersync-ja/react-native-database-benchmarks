@@ -21,6 +21,7 @@ export default function App() {
   const [times, setTimes] = useState<number>(0);
   const [csvString, setCsvString] = useState<string>('');
   const [json, setJson] = useState<any[]>([]);
+  const [jsonBatched, setJsonBatched] = useState<any[]>([]);
 
   let groupByN = (n: number, arr: any[]) => {
     let result = [];
@@ -45,12 +46,16 @@ export default function App() {
         ];
         let benchmarkSuite = new BenchmarkSuite(benchmarks);
         let s = await benchmarkSuite.runBenchmarks();
-        // let s = await benchmarkSuite.runBatchedBenchmarks();
+        let sb = await benchmarkSuite.runBatchedBenchmarks();
+
         let json = readString(s, {
           delimiter: ','
         });
-        console.log(json);
         setJson(json.data);
+
+        let jsonBatched = readString(sb, { delimiter: ',' });
+        setJsonBatched(jsonBatched.data);
+
         setCsvString(s);
       } catch (err) {
         console.error(err);
@@ -70,6 +75,9 @@ export default function App() {
         {!!csvString && <Text>{csvString}</Text>}
         <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
           <Rows data={json} />
+        </Table>
+        <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
+          <Rows data={jsonBatched} />
         </Table>
       </ScrollView>
     </SafeAreaView>
