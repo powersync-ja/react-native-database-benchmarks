@@ -38,22 +38,20 @@ export class BenchmarkSuite {
   }
 
   calculateAverage = (results: any[], benchmarkResults: BenchmarkResults) => {
-    let s = `Test,${results.map((r) => r.suite).join(',')}\n`;
+    let s = `Test,${results.map((r) => r.suite).join(',')},Average\n`;
     for (let i = 0; i < benchmarkResults.results.length; i++) {
       let test = benchmarkResults.results[i].test;
-      // let s = `,${test}`;
       s += `${test}`;
-      // let avg = 0;
+      let avg = 0;
       for (const rr of results) {
         let r3 = rr.results[i].duration;
-        // if (typeof r3 === 'number') {
-        //   avg += r3;
-        // }
+        if (typeof r3 === 'number') {
+          avg += r3;
+        }
         s += `,${r3}`;
       }
-      s += `\n`;
-      // let average = avg / 3;
-      // s += `,${average.toFixed(2)}\n`;
+      let average = avg / 3;
+      s += `,${average.toFixed(2)}\n`;
     }
     console.log(s);
     return s;

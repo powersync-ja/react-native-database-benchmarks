@@ -37,15 +37,15 @@ export default function App() {
         let expoNextAdapter = new ExpoNextSqliteAdapter();
         // let rnQuickSqliteAdapter = new RNQuickSqliteAdapter();
         let benchmarks = [
-          { name: 'op-sqlite', dbAdapter: opSqliteAdapter },
-          { name: 'ps-sqlite', dbAdapter: psSqliteAdapter },
+          { name: 'op-sqlite', dbAdapter: opSqliteAdapter }
+          // { name: 'ps-sqlite', dbAdapter: psSqliteAdapter },
           // { name: 'rn-quick-sqlite', dbAdapter: rnQuickSqliteAdapter }
-          { name: 'expo-sqlite', dbAdapter: expoSqliteAdapter },
-          { name: 'expo-next-sqlite', dbAdapter: expoNextAdapter }
+          // { name: 'expo-sqlite', dbAdapter: expoSqliteAdapter },
+          // { name: 'expo-next-sqlite', dbAdapter: expoNextAdapter }
         ];
         let benchmarkSuite = new BenchmarkSuite(benchmarks);
         let s = await benchmarkSuite.runBenchmarks();
-        await benchmarkSuite.runBatchedBenchmarks();
+        // let s = await benchmarkSuite.runBatchedBenchmarks();
         let json = readString(s, {
           delimiter: ','
         });
