@@ -16,18 +16,10 @@ import 'react-native-get-random-values'; //[Error: crypto.getRandomValues() not 
 // import { RNQuickSqliteAdapter } from './adapters/rn-quick-sqlite-adapter';
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [results, setResults] = useState<any>([]);
   const [times, setTimes] = useState<number>(0);
   const [csvString, setCsvString] = useState<string>('');
   const [json, setJson] = useState<any[]>([]);
   const [jsonBatched, setJsonBatched] = useState<any[]>([]);
-
-  let groupByN = (n: number, arr: any[]) => {
-    let result = [];
-    for (let i = 0; i < arr.length; i += n) result.push(arr.slice(i, i + n));
-    return result;
-  };
 
   useEffect(() => {
     const runTests = async () => {
@@ -38,10 +30,10 @@ export default function App() {
         let expoNextAdapter = new ExpoNextSqliteAdapter();
         // let rnQuickSqliteAdapter = new RNQuickSqliteAdapter();
         let benchmarks = [
-          { name: 'op-sqlite', dbAdapter: opSqliteAdapter }
-          // { name: 'ps-sqlite', dbAdapter: psSqliteAdapter },
+          // { name: 'op-sqlite', dbAdapter: opSqliteAdapter }
+          // { name: 'ps-sqlite', dbAdapter: psSqliteAdapter }
           // { name: 'rn-quick-sqlite', dbAdapter: rnQuickSqliteAdapter }
-          // { name: 'expo-sqlite', dbAdapter: expoSqliteAdapter },
+          { name: 'expo-sqlite', dbAdapter: expoSqliteAdapter }
           // { name: 'expo-next-sqlite', dbAdapter: expoNextAdapter }
         ];
         let benchmarkSuite = new BenchmarkSuite(benchmarks);
@@ -73,10 +65,10 @@ export default function App() {
         </View>
         {!!times && <Text>Normal query {times.toFixed(2)} ms</Text>}
         {!!csvString && <Text>{csvString}</Text>}
-        <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
+        <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }} style={{ paddingBottom: 10 }}>
           <Rows data={json} />
         </Table>
-        <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
+        <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }} style={{ paddingBottom: 20 }}>
           <Rows data={jsonBatched} />
         </Table>
       </ScrollView>
