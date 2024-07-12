@@ -1,12 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native';
 import { BenchmarkSuite } from './database/benchmark-suite';
-import { OPSqliteAdapter, ExpoSqliteAdapter, ExpoNextSqliteAdapter } from './adapters/adapters';
+import { OPSqliteAdapter, ExpoSqliteAdapter } from './adapters/adapters';
 import { PowersyncSqliteAdapter } from './adapters/powersync-sqlite-adapter';
-import { BenchmarkResults } from './interface/benchmark';
 import { readString } from 'react-native-csv';
-import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+import { Table, Rows } from 'react-native-reanimated-table';
 import 'react-native-get-random-values'; //[Error: crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported]
 /**
  * RNQuickSqliteAdapter requires removing the @journeyapps/react-native-quick-sqlite libraries
@@ -27,14 +25,12 @@ export default function App() {
         let opSqliteAdapter = new OPSqliteAdapter();
         let expoSqliteAdapter = new ExpoSqliteAdapter();
         let psSqliteAdapter = new PowersyncSqliteAdapter();
-        let expoNextAdapter = new ExpoNextSqliteAdapter();
         // let rnQuickSqliteAdapter = new RNQuickSqliteAdapter();
         let benchmarks = [
           // { name: 'op-sqlite', dbAdapter: opSqliteAdapter }
           // { name: 'ps-sqlite', dbAdapter: psSqliteAdapter }
           // { name: 'rn-quick-sqlite', dbAdapter: rnQuickSqliteAdapter }
           { name: 'expo-sqlite', dbAdapter: expoSqliteAdapter }
-          // { name: 'expo-next-sqlite', dbAdapter: expoNextAdapter }
         ];
         let benchmarkSuite = new BenchmarkSuite(benchmarks);
         let s = await benchmarkSuite.runBenchmarks();
