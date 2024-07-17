@@ -29,8 +29,8 @@ export default function App() {
         let benchmarks = [
           // { name: 'op-sqlite', dbAdapter: opSqliteAdapter }
           // { name: 'ps-sqlite', dbAdapter: psSqliteAdapter }
-          { name: 'rn-quick-sqlite', dbAdapter: rnQuickSqliteAdapter }
-          // { name: 'expo-sqlite', dbAdapter: expoSqliteAdapter }
+          // { name: 'rn-quick-sqlite', dbAdapter: rnQuickSqliteAdapter }
+          { name: 'expo-sqlite', dbAdapter: expoSqliteAdapter }
         ];
         let benchmarkSuite = new BenchmarkSuite(benchmarks);
         let s = await benchmarkSuite.runBenchmarks();
